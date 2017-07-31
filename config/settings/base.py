@@ -45,6 +45,7 @@ DJANGO_APPS = [
     'django.contrib.admin',
 ]
 THIRD_PARTY_APPS = [
+    'rest_framework',            # utilities for rest apis
 ]
 
 # Apps specific for this project go here.
@@ -90,6 +91,24 @@ FIXTURE_DIRS = (
 # EMAIL CONFIGURATION
 # ------------------------------------------------------------------------------
 EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
+
+# Django Rest Framework
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+    'DATETIME_FORMAT': '%Y-%m-%dT%H:%M:%S%z',
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    )
+}
 
 # MANAGER CONFIGURATION
 # ------------------------------------------------------------------------------
@@ -254,8 +273,9 @@ SOCIALACCOUNT_ADAPTER = 'main.users.adapters.SocialAccountAdapter'
 # Custom user app defaults
 # Select the correct user model
 AUTH_USER_MODEL = 'users.User'
-LOGIN_REDIRECT_URL = 'users:redirect'
-LOGIN_URL = 'account_login'
+# LOGIN_REDIRECT_URL = 'users:redirect'
+# LOGIN_URL = 'account_login'
+# LOGIN_URL = 'users:redirect'
 
 # SLUGLIFIER
 AUTOSLUG_SLUGIFY_FUNCTION = 'slugify.slugify'
