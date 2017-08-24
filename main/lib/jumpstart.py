@@ -65,6 +65,7 @@ class Jumpstart(object):
             _push_to_repo function.
         """
         if response.code == 201:
+            print 'success: _create_github_repo_callback'
             self.REPO_URL = response.body.get('ssh_url')
             self._push_to_repo(self.PROJECT_NAME, self.REPO_URL)
         else:
@@ -77,6 +78,7 @@ class Jumpstart(object):
             _push_to_repo function.
         """
         if response.code == 200:
+            print 'success: _create_bitbucket_repo_callback'
             bitbucket_url =  get_bitbucket_git_url(
                 response.body.get('owner'),
                 response.body.get('name')
@@ -163,6 +165,12 @@ class Jumpstart(object):
         })
         resp = odoo.setup()
         self._create_odoo_project_callback(resp)
+        
+    def get_pm_tool_url(self):
+        return self.PM_TOOL_URL
+        
+    def get_repo_url(self):
+        return self.REPO_URL
 
     def process(self, **kwargs):
         """
@@ -176,9 +184,6 @@ class Jumpstart(object):
                 3 - odoo
         """
 
-        self._create_build_directory()
-        self._clone_web_repo_url()
-
         if self.REPOSITORY != "":
             if self.REPOSITORY == 0:
                 self._create_github_repo()
@@ -190,5 +195,6 @@ class Jumpstart(object):
                 self._create_jira_project()
             else:
                 self._create_odoo_project()
-        
-        return {}
+                
+        self._create_build_directory()
+        self._clone_web_repo_url()

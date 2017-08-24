@@ -7,6 +7,7 @@ from rest_framework.response import Response
 
 from lib.jumpstart import Jumpstart
 
+from core.utils import send_email_template
 from .models import (
     Service,
     Template,
@@ -38,7 +39,7 @@ class JumpStartAPIView(APIView):
             
         template = Template.objects.get(template_type=template_type)
         
-        Jumpstart(**{
+        js = Jumpstart(**{
             'project_name': project_name,
             'project_key': project_key,
             'repository': repo,
@@ -47,4 +48,14 @@ class JumpStartAPIView(APIView):
             'service_data': service_data
         })
         
-        return Response({})
+        email_subj = "{} PROJECT SUCCESSFULY CREATED".format(project_name)
+        
+        email_body = "Project Successfuly Created\n" \
+                    "Repository URL: {}\nPM Tool URL: {}".format(js.get_pm_tool_url(), js.get_repo_url())
+        
+        send_email_template(email_subj, "", [to_email], email_body)
+
+        return Response({
+            'pm_tool_url': js.get_pm_tool_url(),
+            'repo_url': js.get_repo_url()
+            })
