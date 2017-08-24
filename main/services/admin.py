@@ -3,12 +3,9 @@ from django.contrib import admin
 from .models import (
     Service,
     Setting,
+    Template,
 )
 
-
-class SettingInline(admin.TabularInline):
-    model = Service.settings.through
-    extra = 0
 
 
 class SettingAdmin(admin.ModelAdmin):
@@ -19,8 +16,8 @@ class SettingAdmin(admin.ModelAdmin):
 class ServiceAdmin(admin.ModelAdmin):
     list_display = ('name',)
     search_fields = ('name',)
-    inlines = (SettingInline,)
 
 
 admin.site.register(Setting, SettingAdmin)
 admin.site.register(Service, ServiceAdmin)
+admin.site.register(Template, None)

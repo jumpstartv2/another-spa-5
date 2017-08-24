@@ -8,7 +8,7 @@ from django.views import defaults as default_views
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
     url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name='about'),
-
+    
     # Django Admin, use {% url 'admin:index' %}
     url(settings.ADMIN_URL, admin.site.urls),
 
@@ -16,8 +16,8 @@ urlpatterns = [
     url(r'^users/', include('main.users.urls', namespace='users')),
 
     # Your stuff: custom urls includes go here
-
-
+    url(r'^api/v1/', include('main.services.urls', namespace='services')),
+    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
