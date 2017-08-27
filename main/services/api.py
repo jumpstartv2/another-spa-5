@@ -21,10 +21,9 @@ class JumpStartAPIView(APIView):
     def post(self, request, *args, **kwargs):
         project_name = request.data.get('project_name')
         project_key = request.data.get('project_key')
-        repo = request.data.get('repo', 0)
-        pm_tool = request.data.get('pm_tool', 2)
+        repo = request.data.get('repo', "")
+        pm_tool = request.data.get('pm_tool', "")
         template_type = request.data.get('template_type', 0)
-        to_email = request.data.get('to_email', request.user.email)
         
         repo_service = Service.objects.filter(identifier__in=[repo, pm_tool])
         repo_serializer = ServiceSerializer(repo_service, many=True).data
@@ -51,9 +50,9 @@ class JumpStartAPIView(APIView):
         email_subj = "{} PROJECT SUCCESSFULY CREATED".format(project_name)
         
         email_body = "Project Successfuly Created\n" \
-                    "Repository URL: {}\nPM Tool URL: {}".format(js.get_pm_tool_url(), js.get_repo_url())
+                    "Repository URL: {}\nPM Tool URL: {}".format(js.get_repo_url(), js.get_pm_tool_url())
         
-        send_email_template(email_subj, "", [to_email], email_body)
+        send_email_template(email_subj, "", [request.user.email], email_body)
 
         return Response({
             'pm_tool_url': js.get_pm_tool_url(),

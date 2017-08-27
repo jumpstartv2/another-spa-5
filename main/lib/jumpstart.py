@@ -58,6 +58,14 @@ class Jumpstart(object):
         os.system("cd build/jumpstart/{} && git remote set-url origin {} && git push -u origin master".format(
             project_name,
             repo_url))
+        
+    def _delete_build_directory(self):
+        """
+            Function that will delete project directory based on `Project Name` given by the user
+            or the default.
+        """
+        print "build directory..."
+        os.system("rm -rf build/jumpstart/{}".format(self.PROJECT_NAME))
 
     def _create_github_repo_callback(self, response):
         """
@@ -183,12 +191,6 @@ class Jumpstart(object):
                 2 - jira
                 3 - odoo
         """
-
-        if self.REPOSITORY != "":
-            if self.REPOSITORY == 0:
-                self._create_github_repo()
-            else:
-                self._create_bitbucket_repo()
                 
         if self.PM_TOOL != "":
             if self.PM_TOOL == 2:
@@ -196,5 +198,12 @@ class Jumpstart(object):
             else:
                 self._create_odoo_project()
                 
-        self._create_build_directory()
-        self._clone_web_repo_url()
+        if self.REPOSITORY != "":
+            if self.REPOSITORY == 0:
+                self._create_github_repo()
+            else:
+                self._create_bitbucket_repo()
+            
+            self._create_build_directory()
+            self._clone_web_repo_url()
+                
