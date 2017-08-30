@@ -6,6 +6,34 @@ API for Jumpstart V2
 .. image:: https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg
      :target: https://github.com/pydanny/cookiecutter-django/
      :alt: Built with Cookiecutter Django
+     
+     
+### Dependency Setup ###
+
+Setup you virtualenv:
+```
+$ virtualenv env
+$ source env/bin/activate
+```
+
+
+Install the requirements in `production.txt`:
+```
+pip install -r requirements/production.txt
+```
+
+### Project Settings Setup ###
+Create a `config/settings/local.py` file.
+
+Run migrations:
+```
+./manage.py migrate
+```
+
+Run server:
+```
+./manage.py runserver
+```
 
 
 Settings
