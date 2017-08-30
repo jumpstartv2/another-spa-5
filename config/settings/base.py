@@ -53,6 +53,9 @@ LOCAL_APPS = [
     # custom users app
     'main.users.apps.UsersConfig',
     # Your stuff: custom apps go here
+    
+    'core',
+    'main.services.apps.ServicesConfig',
 ]
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -91,6 +94,13 @@ FIXTURE_DIRS = (
 # EMAIL CONFIGURATION
 # ------------------------------------------------------------------------------
 EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
+
+DEFAULT_FROM_EMAIL = 'raygrin2@gmail.com'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = DEFAULT_FROM_EMAIL
+EMAIL_HOST_PASSWORD = 'RayGrin123!@#'
+EMAIL_USE_TLS = True
 
 # Django Rest Framework
 REST_FRAMEWORK = {
