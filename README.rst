@@ -35,33 +35,6 @@ Run server:
 ./manage.py runserver
 ```
 
-### Dependency Setup ###
-
-Setup you virtualenv:
-```
-$ virtualenv env
-$ source env/bin/activate
-```
-
-
-Install the requirements in `production.txt`:
-```
-pip install -r requirements/production.txt
-```
-
-### Project Settings Setup ###
-Create a `config/settings/local.py` file.
-
-Run migrations:
-```
-./manage.py migrate
-```
-
-Run server:
-```
-./manage.py runserver
-```
-
 
 Settings
 --------
