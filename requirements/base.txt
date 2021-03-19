@@ -12,7 +12,7 @@ django==1.10.7 # pyup: >=1.10,<1.11
 django-environ==0.4.3
 
 # Rest apis
-djangorestframework==3.5.4
+djangorestframework==3.11.2
 
 # Models
 django-model-utils==3.0.0
